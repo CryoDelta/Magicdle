@@ -22,8 +22,8 @@ class Card
     #[ORM\Column(length: 255)]
     private ?string $cost = null;
 
-    #[ORM\ManyToMany(targetEntity: Color::class, inversedBy: 'manaValue')]
-    private Collection $colors;
+    #[ORM\Column(length: 255)]
+    private ?string $colors = null;
 
     #[ORM\Column]
     private ?int $manaValue = null;
@@ -34,14 +34,14 @@ class Card
     #[ORM\Column(nullable: true)]
     private ?float $toughness = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $loyalty = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $defense = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $typeLine = null;
+    private ?string $typeline = null;
 
     #[ORM\ManyToMany(targetEntity: Keyword::class, inversedBy: 'cards')]
     private Collection $keywords;
@@ -52,32 +52,26 @@ class Card
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $flavorText = null;
 
-    #[ORM\ManyToMany(targetEntity: Color::class, inversedBy: 'cards')]
-    private Collection $colorIdentity;
+    #[ORM\Column(length: 255)]
+    private ?string $colorIdentity = null;
 
     #[ORM\Column(length: 255)]
     private ?string $rarity = null;
 
-    #[ORM\ManyToOne(inversedBy: 'image')]
+    #[ORM\ManyToOne(inversedBy: 'cards')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Set $set = null;
+    private ?Set $lastSet = null;
 
-    #[ORM\OneToOne(inversedBy: 'card', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Media $image = null;
-
-    #[ORM\OneToOne(inversedBy: 'card', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Media $art = null;
+    #[ORM\OneToMany(mappedBy: 'card', targetEntity: Media::class, orphanRemoval: true)]
+    private Collection $media;
 
     #[ORM\Column(length: 255)]
     private ?string $artist = null;
 
     public function __construct()
     {
-        $this->colors = new ArrayCollection();
         $this->keywords = new ArrayCollection();
-        $this->colorIdentity = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,26 +103,14 @@ class Card
         return $this;
     }
 
-    /**
-     * @return Collection<int, Color>
-     */
-    public function getColors(): Collection
+    public function getColors(): ?string
     {
         return $this->colors;
     }
 
-    public function addColor(Color $color): static
+    public function setColors(string $colors): static
     {
-        if (!$this->colors->contains($color)) {
-            $this->colors->add($color);
-        }
-
-        return $this;
-    }
-
-    public function removeColor(Color $color): static
-    {
-        $this->colors->removeElement($color);
+        $this->colors = $colors;
 
         return $this;
     }
@@ -174,7 +156,7 @@ class Card
         return $this->loyalty;
     }
 
-    public function setLoyalty(int $loyalty): static
+    public function setLoyalty(?int $loyalty): static
     {
         $this->loyalty = $loyalty;
 
@@ -193,14 +175,14 @@ class Card
         return $this;
     }
 
-    public function getTypeLine(): ?string
+    public function getTypeline(): ?string
     {
-        return $this->typeLine;
+        return $this->typeline;
     }
 
-    public function setTypeLine(string $typeLine): static
+    public function setTypeline(string $typeline): static
     {
-        $this->typeLine = $typeLine;
+        $this->typeline = $typeline;
 
         return $this;
     }
@@ -253,26 +235,14 @@ class Card
         return $this;
     }
 
-    /**
-     * @return Collection<int, Color>
-     */
-    public function getColorIdentity(): Collection
+    public function getColorIdentity(): ?string
     {
         return $this->colorIdentity;
     }
 
-    public function addColorIdentity(Color $colorIdentity): static
+    public function setColorIdentity(string $colorIdentity): static
     {
-        if (!$this->colorIdentity->contains($colorIdentity)) {
-            $this->colorIdentity->add($colorIdentity);
-        }
-
-        return $this;
-    }
-
-    public function removeColorIdentity(Color $colorIdentity): static
-    {
-        $this->colorIdentity->removeElement($colorIdentity);
+        $this->colorIdentity = $colorIdentity;
 
         return $this;
     }
@@ -289,38 +259,44 @@ class Card
         return $this;
     }
 
-    public function getSet(): ?Set
+    public function getLastSet(): ?Set
     {
-        return $this->set;
+        return $this->lastSet;
     }
 
-    public function setSet(?Set $set): static
+    public function setLastSet(?Set $lastSet): static
     {
-        $this->set = $set;
+        $this->lastSet = $lastSet;
 
         return $this;
     }
 
-    public function getImage(): ?Media
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedia(): Collection
     {
-        return $this->image;
+        return $this->media;
     }
 
-    public function setImage(Media $image): static
+    public function addMedium(Media $medium): static
     {
-        $this->image = $image;
+        if (!$this->media->contains($medium)) {
+            $this->media->add($medium);
+            $medium->setCard($this);
+        }
 
         return $this;
     }
 
-    public function getArt(): ?Media
+    public function removeMedium(Media $medium): static
     {
-        return $this->art;
-    }
-
-    public function setArt(Media $art): static
-    {
-        $this->art = $art;
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getCard() === $this) {
+                $medium->setCard(null);
+            }
+        }
 
         return $this;
     }

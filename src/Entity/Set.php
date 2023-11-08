@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SetRepository::class)]
+#[ORM\Table(name: '`set`')]
 class Set
 {
     #[ORM\Id]
@@ -22,7 +23,7 @@ class Set
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $releaseDate = null;
 
-    #[ORM\OneToMany(mappedBy: 'set', targetEntity: Card::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'lastSet', targetEntity: Card::class, orphanRemoval: true)]
     private Collection $cards;
 
     public function __construct()
@@ -71,7 +72,7 @@ class Set
     {
         if (!$this->cards->contains($card)) {
             $this->cards->add($card);
-            $card->setSet($this);
+            $card->setLastSet($this);
         }
 
         return $this;
@@ -81,8 +82,8 @@ class Set
     {
         if ($this->cards->removeElement($card)) {
             // set the owning side to null (unless already changed)
-            if ($card->getSet() === $this) {
-                $card->setSet(null);
+            if ($card->getLastSet() === $this) {
+                $card->setLastSet(null);
             }
         }
 

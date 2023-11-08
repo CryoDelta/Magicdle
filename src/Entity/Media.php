@@ -19,7 +19,11 @@ class Media
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
-    #[ORM\OneToOne(mappedBy: 'image', cascade: ['persist', 'remove'])]
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'media')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Card $card = null;
 
     public function getId(): ?int
@@ -51,18 +55,25 @@ class Media
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function getCard(): ?Card
     {
         return $this->card;
     }
 
-    public function setCard(Card $card): static
+    public function setCard(?Card $card): static
     {
-        // set the owning side of the relation if necessary
-        if ($card->getImage() !== $this) {
-            $card->setImage($this);
-        }
-
         $this->card = $card;
 
         return $this;
