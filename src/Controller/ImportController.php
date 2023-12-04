@@ -88,7 +88,7 @@ class ImportController extends AbstractController
                 $card->setEffectText($cardData->oracle_text);
             }
             if (property_exists($cardData, "flavor_text")){
-                $card->setEffectText($cardData->flavor_text);
+                $card->setFlavorText($cardData->flavor_text);
             }
 
             // Color identity

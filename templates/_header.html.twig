@@ -1,0 +1,33 @@
+<header class="px-3 py-2 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                <h1 class="text-primary">
+                    <i class="bi bi-files"></i>
+                    MagicDLE
+                </h1>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                <li>
+                    <a href="#" class="nav-link {% if app.request.pathinfo == path('app_home') %} text-primary {% endif %}">
+                        <i class="bi bi-house d-block text-center"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-activity d-block text-center"></i>
+                        Stats
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-search d-block text-center"></i>
+                        Search
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
