@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+<main class="container py-5">
+    {# Search bar #}
+    {{ form_start(searchForm) }}
+    <div class="row">
+        <div class="col-12">
+            {{ form_label(searchForm.search) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            {{ form_widget(searchForm.search) }}
+        </div>
+        <div class="col-2">
+            {{ form_row(searchForm.submit) }}
+        </div>
+    </div>
+    {{ form_end(searchForm) }}
+
+    {# Filter #}
+    <p class="d-inline-flex gap-1">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false" aria-controls="filterPanel">
+            <i class="bi bi-filter"></i> Filter
+        </button>
+    </p>
+    <div class="collapse" id="filterPanel">
+
+    </div>
+
+    <div class="row">
+        {% for card in results %}
+            <a href="#" class="col-3">
+                <img
+                        src="{% if card.media.1 is defined %}{{ card.media.1.path }}{% endif %}"
+                        alt="{% if card.media.1 is defined %}{{ card.media.1.alt }}{% endif %}"
+                        class="w-100"
+                        style="border-radius: 15px"
+                >
+            </a>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

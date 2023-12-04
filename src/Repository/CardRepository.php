@@ -147,6 +147,17 @@ class CardRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+    * @return Card[] Returns an array of Card objects
+    */
+    public function findByName($search) : array
+    {
+        return $builder = $this->createQueryBuilder('card')
+            ->andWhere('card.name LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Card[] Returns an array of Card objects
 //     */

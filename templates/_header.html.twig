@@ -10,7 +10,7 @@
 
             <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                 <li>
-                    <a href="#" class="nav-link {% if app.request.pathinfo == path('app_home') %} text-primary {% endif %}">
+                    <a href="/" class="nav-link {% if app.request.pathinfo == '' %} text-primary {% endif %}">
                         <i class="bi bi-house d-block text-center"></i>
                         Home
                     </a>
@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link {% if app.request.pathinfo == path('app_search') %} text-primary {% endif %}">
                         <i class="bi bi-search d-block text-center"></i>
                         Search
                     </a>
