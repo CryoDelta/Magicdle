@@ -28,6 +28,7 @@ class CardRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.colors = :col')
             ->setParameter('col', $colors)
+            ->addOrderBy('c.name')
             ->getQuery()
             ->getResult()
         ;
@@ -38,7 +39,7 @@ class CardRepository extends ServiceEntityRepository
      */
     public function findByColorsOrLess($colors): array
     {
-        if ($colors=="C") {
+        if ($colors=="") {
             return $this->findByExactColors($colors);
         }
         if ($colors=="BGRUW") {
@@ -109,9 +110,10 @@ class CardRepository extends ServiceEntityRepository
         }
 
         $builder->orWhere('c.colors = :colorless')
-            ->setParameter('colorless', "C");
+            ->setParameter('colorless', "");
 
         return $builder
+            ->addOrderBy('c.name')
             ->getQuery()
             ->getResult();
     }
@@ -121,7 +123,7 @@ class CardRepository extends ServiceEntityRepository
      */
     public function findByColorsOrMore($colors): array
     {
-        if ($colors == "C") {
+        if ($colors == "") {
             return $this->findAll();
         }
         if ($colors == "BGRUW") {
@@ -129,11 +131,17 @@ class CardRepository extends ServiceEntityRepository
         }
 
         $colorsArray = str_split($colors);
+        $queryColorArray = [];
+        foreach($colorsArray as $color) {
+            $queryColorArray[] = "%" . $color . "%";
+        }
+        $queryColorArray = implode($queryColorArray);
         $builder = $this->createQueryBuilder('c');
         $builder->orWhere('c.colors LIKE :col')
-            ->setParameter('col', "%" . $colors . "%");
+            ->setParameter('col', $queryColorArray);
 
         return $builder
+            ->addOrderBy('c.name')
             ->getQuery()
             ->getResult()
             ;
