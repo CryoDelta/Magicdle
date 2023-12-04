@@ -22,10 +22,12 @@ class FilterType extends AbstractType
                 'label_html' => true
             ])
             ->add('color', ColorIdentityType::class, [
-                'label' => 'Color'
+                'label' => 'Color',
+                'required' => false
             ])
             ->add('typeLine', TextType::class, [
-                'label' => 'Type'
+                'label' => 'Type',
+                'required' => false
             ])
             ->add('set', EntityType::class, [
                 'placeholder' => 'Choose an option',
@@ -38,28 +40,34 @@ class FilterType extends AbstractType
                         ;
                 },
                 'choice_label' => 'name',
+                'required' => false
             ])
             ->add('effectText', TextType::class, [
-                'label' => 'Effect'
+                'label' => 'Effect',
+                'required' => false
             ])
             ->add('flavorText', TextType::class, [
-                'label' => 'Flavor'
+                'label' => 'Flavor',
+                'required' => false
             ])
             ->add('stats', StatType::class, [
-                'label' => 'Stats'
+                'label' => 'Stats',
+                'required' => false
             ])
             ->add('rarity', ChoiceType::class, [
                 'placeholder' => 'Choose an option',
                 'label' => 'Rarity',
                 'choices' => [
-                    'Common' => '',
-                    'Uncommon' => '',
-                    'Rare' => '',
-                    'Mythic' => ''
-                ]
+                    'Common' => 'C',
+                    'Uncommon' => 'U',
+                    'Rare' => 'R',
+                    'Mythic' => 'M'
+                ],
+                'required' => false
             ])
             ->add('artist', TextType::class, [
-                'label' => 'Artist'
+                'label' => 'Artist',
+                'required' => false
             ])
         ;
     }

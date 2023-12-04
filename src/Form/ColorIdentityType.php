@@ -23,17 +23,19 @@ class ColorIdentityType extends AbstractType
                     'Colorless' => 'C'
                 ],
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ])
             ->add('mode', ChoiceType::class, [
                 'placeholder' => 'Choose an option',
                 'choices' => [
-                    'Exactly' => '',
-                    'Including' => '',
-                    'At most' => ''
+                    'Exactly' => 0,
+                    'Including' => 1,
+                    'At most' => 2
                 ],
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
+                'required' => false
             ])
         ;
     }

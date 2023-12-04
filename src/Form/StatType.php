@@ -16,13 +16,14 @@ class StatType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'placeholder' => 'Choose an option',
                 'choices' => [
-                    'Mana value' => '',
-                    'Power' => '',
-                    'Toughness' => '',
-                    'Loyalty' => ''
+                    'Mana value' => 'M',
+                    'Power' => 'P',
+                    'Toughness' => 'T',
+                    'Loyalty' => 'L'
                 ],
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
+                'required' => false
             ])
             ->add('operator', ChoiceType::class, [
                 'placeholder' => 'Choose an option',
@@ -32,7 +33,8 @@ class StatType extends AbstractType
                     'Is more than' => '>'
                 ],
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
+                'required' => false
             ])
             ->add('value', NumberType::class)
         ;
