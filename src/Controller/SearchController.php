@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\FilterType;
 use App\Form\SearchType;
 use App\Repository\CardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ class SearchController extends AbstractController
     #[Route('/search', name: 'app_search')]
     public function index(Request $request, CardRepository $cardRepository): Response
     {
-        $results = [];
+        $results = array_slice($cardRepository->findAll(), 0, 8);
 
         $searchForm = $this->createForm(SearchType::class);
         $searchForm->handleRequest($request);
@@ -22,8 +23,15 @@ class SearchController extends AbstractController
             $results = $cardRepository->findByName($searchForm->getData()['search']);
         }
 
+        $filterForm = $this->createForm(FilterType::class);
+        $filterForm->handleRequest($request);
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $filterForm->getData();
+        }
+
         return $this->render('search/index.html.twig', [
             'searchForm' => $searchForm,
+            'filterForm' => $filterForm,
             'results' => $results
         ]);
     }

@@ -4,32 +4,9 @@
 
 {% block body %}
 <main class="container py-5">
-    {# Search bar #}
-    {{ form_start(searchForm) }}
-    <div class="row">
-        <div class="col-12">
-            {{ form_label(searchForm.search) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-10">
-            {{ form_widget(searchForm.search) }}
-        </div>
-        <div class="col-2">
-            {{ form_row(searchForm.submit) }}
-        </div>
-    </div>
-    {{ form_end(searchForm) }}
+    {{ include('search/_searchType.html.twig') }}
 
-    {# Filter #}
-    <p class="d-inline-flex gap-1">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false" aria-controls="filterPanel">
-            <i class="bi bi-filter"></i> Filter
-        </button>
-    </p>
-    <div class="collapse" id="filterPanel">
-
-    </div>
+    {{ include('search/_filterType.html.twig') }}
 
     <div class="row">
         {% for card in results %}
