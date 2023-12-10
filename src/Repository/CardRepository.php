@@ -147,6 +147,18 @@ class CardRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findBySetAndExactColors($setName, $colors): array
+    {
+        return $this->createQueryBuilder("card")
+            ->innerJoin("card.lastSet", "lastSet")
+            ->where("lastSet.name = :lastSetName")
+            ->setParameter("lastSetName", $setName)
+            ->andWhere("card.colors = :colors")
+            ->setParameter("colors", $colors)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Card[] Returns an array of Card objects
 //     */
