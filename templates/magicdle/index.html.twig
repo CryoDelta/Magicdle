@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MagicdleController!{% endblock %}
-
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -9,12 +7,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <form class="d-flex" role="inputCardName" action="{{ path("app_magicdle") }}">
+        <input class="form-control me-2" type="input" placeholder="Enter a card name" aria-label="Input" name="cardInput">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/natho/Documents/Symfony/Magicdle/src/Controller/MagicdleController.php'|file_link(0) }}">src/Controller/MagicdleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/natho/Documents/Symfony/Magicdle/templates/magicdle/index.html.twig'|file_link(0) }}">templates/magicdle/index.html.twig</a></code></li>
-    </ul>
+    {% if success %}
+        <h2>Correct! Today's card is {{ cardOfTheDay.name }}! </h2>
+        <img src={{ cardOfTheDay.media.1.path }}>
+    {% endif %}
 </div>
 {% endblock %}
