@@ -14,6 +14,7 @@ class MagicdleController extends AbstractController
     public function index(CardRepository $cardRepository, Request $request): Response
     {
         $session = $request->getSession();
+        $session->clear();
         if (!$session->get("lastDay", false)) { // if lastDay isn't initialized, initialize it
             // set last day as current day
             $session->set("lastDay", date("Ymd"));
@@ -90,6 +91,9 @@ class MagicdleController extends AbstractController
                         $guesses[] = $cardInputCaracteristics;
                         $session->set("guesses",$guesses);
                     }
+                }
+                else {
+                    $this->addFlash("notice","The card you entered doesn't exist.");
                 }
             }
         }
