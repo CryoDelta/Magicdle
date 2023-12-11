@@ -1,0 +1,8 @@
+<a href="#" class="col-{% if col is defined %}{{ col }}{% else %}3{% endif %}">
+    <img
+            src="{% if card.media.1 is defined %}{{ card.media.1.path }}{% endif %}"
+            alt="{% if card.media.1 is defined %}{{ card.media.1.alt }}{% endif %}"
+            class="w-100"
+            style="border-radius: {% if col is defined %}{{ col*5 }}{% else %}{{ 15 }}{% endif %}px"
+    >
+</a>
