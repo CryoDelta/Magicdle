@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Repository\CardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardController extends AbstractController
 {
     #[Route('/card/{id}', name: 'app_card')]
-    public function index(Card $id): Response
+    public function index(Card $id, CardRepository $cardRepository): Response
     {
         if(!$id->getMedia()->isEmpty()){
             $url=$id->getMedia()->get(0)->getPath();
@@ -24,9 +25,12 @@ class CardController extends AbstractController
             $cardArt = null;
         }
 
+        $linkedCards = $cardRepository->findByName($id->getName());
+
         return $this->render('card/index.html.twig', [
             'card' => $id,
-            'art' => $cardArt
+            'art' => $cardArt,
+            'linkedCards' => $linkedCards
         ]);
     }
 }

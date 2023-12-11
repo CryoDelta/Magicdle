@@ -26,6 +26,18 @@
                     {% endif %}
                 </div>
             </div>
+            {% if linkedCards is not empty %}
+                <div class="col-3 bg-secondary-subtle py-1" style="height: fit-content;border-radius: 15px">
+                    <h2>Alternative arts:</h2>
+                    <ul>
+                        {% for linkedCard in linkedCards %}
+                            {% if linkedCard.id != card.id and not linkedCard.media.empty %}
+                                <li><a href="{{ path('app_card', {'id' : linkedCard.id}) }}">{{ linkedCard.name }} by {{ linkedCard.artist }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
     </main>
 {% endblock %}
