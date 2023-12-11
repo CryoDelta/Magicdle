@@ -10,19 +10,19 @@
 
             <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                 <li>
-                    <a href="/" class="nav-link {% if app.request.pathinfo == '' %} text-primary {% endif %}">
+                    <a href="{{ path('app_home') }}" class="nav-link {% if app.request.pathinfo == path('app_home') %} text-primary {% endif %}">
                         <i class="bi bi-house d-block text-center"></i>
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="/stats" class="nav-link">
+                    <a href="{{ path('app_stats') }}" class="nav-link {% if app.request.pathinfo == path('app_stats') %} text-primary {% endif %}">
                         <i class="bi bi-activity d-block text-center"></i>
                         Stats
                     </a>
                 </li>
                 <li>
-                    <a href="" class="nav-link {% if app.request.pathinfo == path('app_search') %} text-primary {% endif %}">
+                    <a href="{{ path('app_search') }}" class="nav-link {% if app.request.pathinfo == path('app_search') %} text-primary {% endif %}">
                         <i class="bi bi-search d-block text-center"></i>
                         Search
                     </a>
