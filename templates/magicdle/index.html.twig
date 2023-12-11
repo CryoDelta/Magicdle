@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<div class="example-wrapper">
+    {% if not success %}
+        <form class="d-flex" role="inputCardName" action="{{ path("app_magicdle") }}">
+            <input class="form-control me-2" type="input" placeholder="Enter a card name" aria-label="Input" name="cardInput">
+            <button class="btn btn-outline-success" type="submit">Guess</button>
+        </form>
+    {% endif %}
+
+    <p>Name | Color | Color identity | CMC | Typeline | Power | Toughness | Loyalty | Defense | Rarity | Artist</p>
+    {% for guess in guesses %}
+        <p>{{ guess.name }} | {{ guess.color.0 }} | {{ guess.colorIdentity.0 }} | {{ guess.cmc.0 }} | {{ guess.typeline.0 }} |
+            {% if guess.power.0 is not null %}
+                {{ guess.power.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.toughness.0 is not null %}
+                {{ guess.toughness.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.loyalty.0 is not null %}
+                {{ guess.loyalty.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.defense.0 is not null %}
+                {{ guess.defense.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {{ guess.rarity.0 }} | {{ guess.artist.0 }}</p>
+    {% endfor %}
+
+    {% if success %}
+        <h2>Correct! Today's card is {{ cardOfTheDay.name }}! </h2>
+        <img src={{ cardOfTheDay.media.1.path }}>
+    {% endif %}
+</div>
+{% endblock %}

@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Card;
-use App\Entity\Set;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -339,6 +338,24 @@ class CardRepository extends ServiceEntityRepository
                 ->setParameter('a', "%" . $artist . "%");
         }
         return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findCardById($id): array
+    {
+        return $this->createQueryBuilder("card")
+            ->where("card.id = :cardId")
+            ->setParameter("cardId", $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findCardByName($name): array
+    {
+        return $this->createQueryBuilder("card")
+            ->where("card.name = :cardName")
+            ->setParameter("cardName", $name)
             ->getQuery()
             ->getResult();
     }
