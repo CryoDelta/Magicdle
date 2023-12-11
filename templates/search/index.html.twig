@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+<main class="container py-5">
+    {{ include('search/_searchType.html.twig') }}
+
+    {{ include('search/_filterType.html.twig') }}
+
+    <div class="row">
+        {% for card in results %}
+            <a href="#" class="col-3">
+                <img
+                        src="{% if card.media.1 is defined %}{{ card.media.1.path }}{% endif %}"
+                        alt="{% if card.media.1 is defined %}{{ card.media.1.alt }}{% endif %}"
+                        class="w-100"
+                        style="border-radius: 15px"
+                >
+            </a>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

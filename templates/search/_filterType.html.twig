@@ -1,0 +1,44 @@
+{{ form_start(filterForm) }}
+<div class="d-inline-flex gap-3">
+    <div>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false" aria-controls="filterPanel">
+            <i class="bi bi-filter"></i> Filter
+        </button>
+    </div>
+    <div>
+        {{ form_row(filterForm.submit) }}
+    </div>
+</div>
+
+
+<div class="collapse" id="filterPanel">
+    {{ include('search/_colorIdentityType.html.twig') }}
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(filterForm.typeLine) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(filterForm.set) }}
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-6">
+            {{ form_label(filterForm.effectText) }}
+            {{ form_widget(filterForm.effectText) }}
+        </div>
+        <div class="col-6">
+            {{ form_label(filterForm.flavorText) }}
+            {{ form_widget(filterForm.flavorText) }}
+        </div>
+    </div>
+    {{ include('search/_statType.html.twig') }}
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(filterForm.rarity) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(filterForm.artist) }}
+        </div>
+    </div>
+</div>
+{{ form_end(filterForm) }}
