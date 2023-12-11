@@ -20,8 +20,7 @@ class ColorIdentityType extends AbstractType
                     'Green' => 'G',
                     'Red' => 'R',
                     'Blue' => 'U',
-                    'White' => 'W',
-                    'Colorless' => ''
+                    'White' => 'W'
                 ],
                 'expanded' => true,
                 'multiple' => true,
