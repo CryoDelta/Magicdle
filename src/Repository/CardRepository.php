@@ -168,6 +168,15 @@ class CardRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findCardByName($name): array
+    {
+        return $this->createQueryBuilder("card")
+            ->where("card.name = :cardName")
+            ->setParameter("cardName", $name)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Card[] Returns an array of Card objects
 //     */

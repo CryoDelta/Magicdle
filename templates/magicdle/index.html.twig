@@ -7,10 +7,42 @@
 </style>
 
 <div class="example-wrapper">
-    <form class="d-flex" role="inputCardName" action="{{ path("app_magicdle") }}">
-        <input class="form-control me-2" type="input" placeholder="Enter a card name" aria-label="Input" name="cardInput">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    {% if not success %}
+        <form class="d-flex" role="inputCardName" action="{{ path("app_magicdle") }}">
+            <input class="form-control me-2" type="input" placeholder="Enter a card name" aria-label="Input" name="cardInput">
+            <button class="btn btn-outline-success" type="submit">Guess</button>
+        </form>
+    {% endif %}
+
+    <p>Name | Color | Color identity | CMC | Typeline | Power | Toughness | Loyalty | Defense | Rarity | Artist</p>
+    {% for guess in guesses %}
+        <p>{{ guess.name }} | {{ guess.color.0 }} | {{ guess.colorIdentity.0 }} | {{ guess.cmc.0 }} | {{ guess.typeline.0 }} |
+            {% if guess.power.0 is not null %}
+                {{ guess.power.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.toughness.0 is not null %}
+                {{ guess.toughness.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.loyalty.0 is not null %}
+                {{ guess.loyalty.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {% if guess.defense.0 is not null %}
+                {{ guess.defense.0 }}
+            {% else %}
+                None
+            {% endif %}
+            |
+            {{ guess.rarity.0 }} | {{ guess.artist.0 }}</p>
+    {% endfor %}
 
     {% if success %}
         <h2>Correct! Today's card is {{ cardOfTheDay.name }}! </h2>
