@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ card.name }}{% endblock %}
+
+{% block body %}
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            {{ include('_card.html.twig') }}
+            <div class="col-6 d-flex flex-column justify-content-between">
+                <div>
+                    <h2>{{ card.name }} {{ card.cost }}</h2>
+                    <p class="text-muted">{{ card.rarity|capitalize }} {{ card.typeline }}</p>
+                    <p>
+                        {{ card.effectText }}
+                    </p>
+                    <p class="text-muted fst-italic">
+                        {{ card.flavorText }}
+                    </p>
+                </div>
+                <div>
+                    <p><small>Art by {{ card.artist }}</small></p>
+                    {% if art is not null %}
+                        <a class="btn btn-primary" href="{{ art }}" download="{{ card.media.0.alt }}.jpg">
+                            Download card art
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

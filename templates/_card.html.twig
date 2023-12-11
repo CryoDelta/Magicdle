@@ -1,4 +1,4 @@
-<a href="#" class="col-{% if col is defined %}{{ col }}{% else %}3{% endif %}">
+<a href="{{ path('app_card', {id : card.id}) }}" class="col-{% if col is defined %}{{ col }}{% else %}3{% endif %}">
     <img
             src="{% if card.media.1 is defined %}{{ card.media.1.path }}{% endif %}"
             alt="{% if card.media.1 is defined %}{{ card.media.1.alt }}{% endif %}"
