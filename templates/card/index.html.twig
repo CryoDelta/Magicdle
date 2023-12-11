@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ card.name }}{% endblock %}
+
+{% block body %}
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            {{ include('_card.html.twig') }}
+            <div class="col-6 d-flex flex-column justify-content-between">
+                <div>
+                    <h2>{{ card.name }} {{ card.cost }}</h2>
+                    <p class="text-muted">{{ card.rarity|capitalize }} {{ card.typeline }}</p>
+                    <p>
+                        {{ card.effectText|nl2br }}
+                    </p>
+                    <p class="text-muted fst-italic">
+                        {{ card.flavorText|nl2br }}
+                    </p>
+                </div>
+                <div>
+                    <p><small>Art by {{ card.artist }}</small></p>
+                    {% if art is not null %}
+                        <a class="btn btn-primary" href="{{ art }}" download="{{ card.media.0.alt }}.jpg">
+                            Download card art
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if linkedCards is not empty %}
+                <div class="col-3 bg-secondary-subtle py-1" style="height: fit-content;border-radius: 15px">
+                    <h2>Alternative arts:</h2>
+                    <ul>
+                        {% for linkedCard in linkedCards %}
+                            {% if linkedCard.id != card.id and not linkedCard.media.empty %}
+                                <li><a href="{{ path('app_card', {'id' : linkedCard.id}) }}">{{ linkedCard.name }} by {{ linkedCard.artist }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
