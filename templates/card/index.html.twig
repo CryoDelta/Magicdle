@@ -31,10 +31,13 @@
                     <h2>Alternative arts:</h2>
                     <ul>
                         {% for linkedCard in linkedCards %}
-                            {% if linkedCard.id != card.id and not linkedCard.media.empty %}
+                            {% if loop.index0 <= 9 %}
                                 <li><a href="{{ path('app_card', {'id' : linkedCard.id}) }}">{{ linkedCard.name }} by {{ linkedCard.artist }}</a></li>
                             {% endif %}
                         {% endfor %}
+                        {% if linkedCards|length > 9 %}
+                            <li><a href="{{ path('app_search', {'cardName' : card.name}) }}">See all...</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             {% endif %}

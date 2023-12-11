@@ -18,6 +18,14 @@ class SearchController extends AbstractController
         $results = array_slice($cardRepository->findAll(), 0, 8);
 
         $searchForm = $this->createForm(SearchType::class);
+
+        $externalQuery = $request->query->get('cardName');
+
+        if ($externalQuery != null){
+            $results = $cardRepository->findByName($externalQuery);
+            $searchForm->get('search')->setData($externalQuery);
+        }
+
         $searchForm->handleRequest($request);
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $results = $cardRepository->findByName($searchForm->getData()['search']);

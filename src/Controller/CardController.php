@@ -26,6 +26,13 @@ class CardController extends AbstractController
         }
 
         $linkedCards = $cardRepository->findByName($id->getName());
+        $temp = [];
+        foreach ($linkedCards as $linkedCard){
+            if ($linkedCard->getName() != $id->getName() && !$linkedCard->getMedia()->isEmpty()){
+                $temp[] = $linkedCard;
+            }
+        }
+        $linkedCards = $temp;
 
         return $this->render('card/index.html.twig', [
             'card' => $id,
