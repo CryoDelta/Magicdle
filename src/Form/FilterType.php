@@ -58,10 +58,10 @@ class FilterType extends AbstractType
                 'placeholder' => 'Choose an option',
                 'label' => 'Rarity',
                 'choices' => [
-                    'Common' => 'C',
-                    'Uncommon' => 'U',
-                    'Rare' => 'R',
-                    'Mythic' => 'M'
+                    'Common' => 'common',
+                    'Uncommon' => 'uncommon',
+                    'Rare' => 'rare',
+                    'Mythic' => 'mythic'
                 ],
                 'required' => false
             ])

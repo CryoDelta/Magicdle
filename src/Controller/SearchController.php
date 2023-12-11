@@ -26,7 +26,32 @@ class SearchController extends AbstractController
         $filterForm = $this->createForm(FilterType::class);
         $filterForm->handleRequest($request);
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-            $filterForm->getData();
+            // Data collection formatting
+            $filters = $filterForm->getData();
+            $colorMode = $filters["color"]["mode"];
+            if ($filters["color"]["type"] != [] && $colorMode != null){
+                $colorTypes = implode('', $filters["color"]["type"]);
+            } else {
+                $colorTypes = null;
+                $colorMode = null;
+            }
+            $statsType = $filters["stats"]["type"];
+            $statsOperator = $filters["stats"]["operator"];
+            $statsValue = $filters["stats"]["value"];
+            if ($statsType == null || $statsOperator == null || $statsValue == null) {
+                $statsType = null;
+                $statsOperator = null;
+                $statsValue = null;
+            }
+
+            // Applying filters
+            $results = $cardRepository->findAllFiltered(
+                $colorTypes, $colorMode,
+                $filters["typeLine"], $filters["set"],
+                $filters["effectText"], $filters["flavorText"],
+                $statsType, $statsOperator, $statsValue,
+                $filters["rarity"], $filters["artist"]
+            );
         }
 
         return $this->render('search/index.html.twig', [

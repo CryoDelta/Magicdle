@@ -29,9 +29,9 @@ class ColorIdentityType extends AbstractType
             ->add('mode', ChoiceType::class, [
                 'placeholder' => 'Choose an option',
                 'choices' => [
-                    'Exactly' => 0,
-                    'Including' => 1,
-                    'At most' => 2
+                    'Exactly' => 1,
+                    'Including' => 2,
+                    'At most' => 3
                 ],
                 'expanded' => false,
                 'multiple' => false,

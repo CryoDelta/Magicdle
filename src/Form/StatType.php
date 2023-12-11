@@ -19,7 +19,8 @@ class StatType extends AbstractType
                     'Mana value' => 'M',
                     'Power' => 'P',
                     'Toughness' => 'T',
-                    'Loyalty' => 'L'
+                    'Loyalty' => 'L',
+                    'Defense' => 'D'
                 ],
                 'expanded' => false,
                 'multiple' => false,
