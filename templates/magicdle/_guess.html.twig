@@ -10,7 +10,16 @@
         {% set colorResult = 'text-bg-danger' %}
     {% endif %}
     <div class="col-1 {{ colorResult }} d-flex align-items-center rounded text-center justify-content-center" style="aspect-ratio: 1/1">{{ guess.color.0 }}</div>
-    <div class="col-1 {% if guess.colorIdentity.1 %}text-bg-primary{% else %}text-bg-danger{% endif %} d-flex align-items-center rounded text-center justify-content-center" style="aspect-ratio: 1/1">{{ guess.colorIdentity.0 }}</div>
+    {% if guess.colorIdentity.1 == 1 %}
+        {% set colorIdentityResult = 'text-bg-primary' %}
+    {% endif %}
+    {% if guess.colorIdentity.1 == 0 %}
+        {% set colorIdentityResult = 'text-bg-warning' %}
+    {% endif %}
+    {% if guess.colorIdentity.1 == -1 %}
+        {% set colorIdentityResult = 'text-bg-danger' %}
+    {% endif %}
+    <div class="col-1 {{ colorIdentityResult }} d-flex align-items-center rounded text-center justify-content-center" style="aspect-ratio: 1/1">{{ guess.colorIdentity.0 }}</div>
     <div class="col-1 {% if guess.cmc.1 %}text-bg-primary{% else %}text-bg-danger{% endif %} d-flex align-items-center rounded text-center justify-content-center" style="aspect-ratio: 1/1">{{ guess.cmc.0 }}</div>
     {% if guess.typeline.1 == 1 %}
         {% set typelineResult = 'text-bg-primary' %}
