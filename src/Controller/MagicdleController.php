@@ -28,8 +28,9 @@ class MagicdleController extends AbstractController
             $cardOfTheDayName = $cardOfTheDay->getName();
             $session->set("cardOfTheDayId", $cardOfTheDayId);
             $session->set("cardOfTheDayName", $cardOfTheDayName);
+            $session->set("guesses", []);
         }
-        else if (date("Ymd")!=$session->get("lastDay") || !$session->get("cardOfTheDay", false)){
+        else if (date("Ymd")!=$session->get("lastDay") || !$session->get("cardOfTheDayName", false)){
             if (date("Ymd")!=$session->get("lastDay")) {
                 $session->set("lastDay", date("Ymd"));
                 $session->set("wonToday",false);
@@ -43,6 +44,7 @@ class MagicdleController extends AbstractController
             $cardOfTheDayName = $cardOfTheDay->getName();
             $session->set("cardOfTheDayId", $cardOfTheDayId);
             $session->set("cardOfTheDayName", $cardOfTheDayName);
+            $session->set("guesses", []);
         }
         else {
             $cardOfTheDayId = $session->get("cardOfTheDayId",false);
