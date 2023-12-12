@@ -45,8 +45,17 @@
         {% endfor %}
 
         {% if success %}
-            <h2>Correct! Today's card is {{ cardOfTheDay.name }}! </h2>
-            <img src={{ cardOfTheDay.media.1.path }}>
+        <a href="{{ path('app_card', {'id' : cardOfTheDay.id}) }}" class="row mt-5 mx-1 justify-content-center rounded"
+           style="
+               background-blend-mode: multiply;
+               background: #01162780 url('{{ cardOfTheDay.media.0.path }}') no-repeat center;
+               background-size: cover;
+               padding-top: 150px;
+               padding-bottom: 150px;
+           "
+        >
+            <h2 class="text-center">Correct! Today's card is {{ cardOfTheDay.name }}! </h2>
+        </a>
         {% endif %}
     </main>
 {% endblock %}
